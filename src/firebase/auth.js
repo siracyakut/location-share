@@ -10,7 +10,7 @@ import {
 } from "firebase/auth";
 import app from "~/firebase";
 import { destroyUser, setUser } from "~/store/auth/actions";
-import { destroyModal } from "~/store/modal/actions";
+import { closeModal } from "~/store/modal/actions";
 import toast from "react-hot-toast";
 
 const auth = getAuth(app);
@@ -19,7 +19,6 @@ provider.setCustomParameters({ prompt: "select_account" });
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    console.log(user);
     setUser(JSON.stringify(user));
   } else {
     destroyUser();
@@ -31,7 +30,7 @@ export const firebaseRegister = async (username, email, password) => {
     await createUserWithEmailAndPassword(auth, email, password);
     await firebaseUpdate(username);
     setUser(JSON.stringify(auth.currentUser));
-    destroyModal();
+    closeModal();
     toast.success("Başarıyla kayıt oldunuz!");
     return true;
   } catch (e) {
@@ -43,7 +42,7 @@ export const firebaseRegister = async (username, email, password) => {
 export const firebaseLogin = async (email, password) => {
   try {
     await signInWithEmailAndPassword(auth, email, password);
-    destroyModal();
+    closeModal();
     toast.success("Başarıyla giriş yaptınız!");
     return true;
   } catch (e) {
@@ -55,7 +54,7 @@ export const firebaseLogin = async (email, password) => {
 export const firebaseGoogleLogin = async () => {
   try {
     await signInWithPopup(auth, provider);
-    destroyModal();
+    closeModal();
     return true;
   } catch (e) {
     toast.error(e.message);

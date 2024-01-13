@@ -6,12 +6,10 @@ import { firebaseGoogleLogin, firebaseLogin } from "~/firebase/auth";
 import Or from "~/components/or";
 import { FcGoogle } from "react-icons/fc";
 import { loginSchema } from "~/validations/auth/login";
-import ModalHeader from "~/modals/components/header";
 
 export default function LoginModal() {
   return (
-    <div className="w-full h-full p-6">
-      <ModalHeader title="Oturum Aç" />
+    <>
       <Formik
         initialValues={{
           email: "",
@@ -61,6 +59,6 @@ export default function LoginModal() {
           </p>
         </div>
       </div>
-    </div>
+    </>
   );
 }

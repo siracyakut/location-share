@@ -6,12 +6,10 @@ import Or from "~/components/or";
 import { firebaseGoogleLogin, firebaseRegister } from "~/firebase/auth";
 import { FcGoogle } from "react-icons/fc";
 import { registerSchema } from "~/validations/auth/register";
-import ModalHeader from "~/modals/components/header";
 
 export default function RegisterModal() {
   return (
-    <div className="w-full h-full p-6">
-      <ModalHeader title="Kayıt Ol" />
+    <>
       <Formik
         initialValues={{
           username: "",
@@ -65,6 +63,6 @@ export default function RegisterModal() {
           </p>
         </div>
       </div>
-    </div>
+    </>
   );
 }

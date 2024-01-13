@@ -5,10 +5,10 @@ import { useModal } from "~/store/modal/hooks";
 import { Toaster } from "react-hot-toast";
 
 export default function MainLayout() {
-  const modal = useModal();
+  const { modal } = useModal();
 
   return (
-    <div className="container mx-auto">
+    <div className="min-h-full container mx-auto">
       <Toaster
         position="top-right"
         toastOptions={{
