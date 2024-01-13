@@ -29,6 +29,7 @@ export const firebaseRegister = async (username, email, password) => {
   try {
     await createUserWithEmailAndPassword(auth, email, password);
     await firebaseUpdate(username);
+    auth.currentUser.displayName = username;
     setUser(JSON.stringify(auth.currentUser));
     closeModal();
     toast.success("Başarıyla kayıt oldunuz!");

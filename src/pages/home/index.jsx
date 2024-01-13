@@ -47,7 +47,14 @@ export default function Home() {
   return (
     <div className="w-full h-full">
       <div className="grid gap-y-3 md:flex md:items-center md:justify-between mb-4">
-        <p className="text-center text-xl font-medium">Konumunuzu paylaşın!</p>
+        <p className="flex flex-col text-center md:text-left text-xl font-medium">
+          Konumunuzu paylaşın!
+          {!user && (
+            <span className="text-sm text-zinc-400">
+              Konumunuzu paylaşabilmek için lütfen giriş yapın.
+            </span>
+          )}
+        </p>
         {(location.loading || location.error) && (
           <p className="text-center bg-zinc-700 text-white px-4 py-2 rounded text-sm">
             {location.loading &&
@@ -56,8 +63,8 @@ export default function Home() {
               "Konumunuz alınırken hata oluştu. Lütfen konum izinlerini verin."}
           </p>
         )}
-        <div className="flex flex-wrap gap-y-4 items-center justify-center gap-x-4">
-          {user && (
+        {user && (
+          <div className="flex flex-wrap gap-y-4 items-center justify-center gap-x-4">
             <Button
               onClick={handleAddLocation}
               component="button"
@@ -69,21 +76,21 @@ export default function Home() {
             >
               Konum Paylaşımını Başlat
             </Button>
-          )}
-          {user && isSharing() && (
-            <Button
-              onClick={handleDeleteLocation}
-              component="button"
-              size="normal"
-              variant="primary"
-              disabled={
-                !user || location.loading || location.error || !isSharing()
-              }
-            >
-              Konum Paylaşımını Durdur
-            </Button>
-          )}
-        </div>
+            {isSharing() && (
+              <Button
+                onClick={handleDeleteLocation}
+                component="button"
+                size="normal"
+                variant="primary"
+                disabled={
+                  !user || location.loading || location.error || !isSharing()
+                }
+              >
+                Konum Paylaşımını Durdur
+              </Button>
+            )}
+          </div>
+        )}
       </div>
       <div className="w-full h-[600px] bg-zinc-500 p-2 rounded-lg">
         <Map>
