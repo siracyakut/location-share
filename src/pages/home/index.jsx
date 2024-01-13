@@ -56,7 +56,7 @@ export default function Home() {
               "Konumunuz alınırken hata oluştu. Lütfen konum izinlerini verin."}
           </p>
         )}
-        <div className="flex items-center gap-x-4">
+        <div className="flex flex-wrap gap-y-4 items-center justify-center gap-x-4">
           {user && (
             <Button
               onClick={handleAddLocation}

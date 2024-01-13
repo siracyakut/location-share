@@ -5,8 +5,8 @@ import PropTypes from "prop-types";
 export default function Map({ children }) {
   const mapDefaults = {
     center: {
-      lat: 39.5,
-      lng: 33,
+      lat: 41,
+      lng: 30,
     },
     zoom: 7,
   };

@@ -122,15 +122,6 @@ export const darkTheme = [
     ],
   },
   {
-    featureType: "road.arterial",
-    elementType: "labels",
-    stylers: [
-      {
-        visibility: "off",
-      },
-    ],
-  },
-  {
     featureType: "road.highway",
     elementType: "geometry",
     stylers: [
@@ -150,27 +141,10 @@ export const darkTheme = [
   },
   {
     featureType: "road.highway",
-    elementType: "labels",
-    stylers: [
-      {
-        visibility: "off",
-      },
-    ],
-  },
-  {
-    featureType: "road.highway",
     elementType: "labels.text.fill",
     stylers: [
       {
         color: "#f3d19c",
-      },
-    ],
-  },
-  {
-    featureType: "road.local",
-    stylers: [
-      {
-        visibility: "off",
       },
     ],
   },
