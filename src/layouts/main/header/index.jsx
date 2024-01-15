@@ -32,7 +32,7 @@ export default function Header() {
                   referrerPolicy="no-referrer"
                 />
               ) : (
-                <p>{user.displayName.slice(0, 1).toLocaleUpperCase("TR")}</p>
+                <p>{user?.displayName?.slice(0, 1).toLocaleUpperCase("TR")}</p>
               )}
             </Menu.Button>
             {user && (
