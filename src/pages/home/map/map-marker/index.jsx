@@ -22,7 +22,8 @@ export default function MapMarker({ name, lat, lng }) {
           <p className="text-white font-medium">{name}</p>
         </div>
       </Popover.Button>
-      <Popover.Panel className="absolute top-5 -left-9 z-[20] bg-zinc-900 min-w-24 flex flex-col items-center justify-center text-center">
+      <Popover.Panel className="absolute top-5 -left-9 z-[2] bg-zinc-900 rounded-md p-2 w-max flex flex-col items-center justify-center text-center">
+        {}
         <p>Kullanıcı: {name}</p>
         <p>LAT: {lat.toFixed(5)}</p>
         <p>LON: {lng.toFixed(5)}</p>

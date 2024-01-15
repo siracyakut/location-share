@@ -4,11 +4,13 @@ import { useGeolocation } from "react-use";
 import { useMarkers } from "~/store/markers/hooks";
 import { useAuth } from "~/store/auth/hooks";
 import MapMarker from "~/pages/home/map/map-marker";
-import { addMarkerToFirebase, deleteMarkerFirebase } from "~/firebase/db";
+import { deleteMarkerFirebase, updateMarkerFirebase } from "~/firebase/db";
 import toast from "react-hot-toast";
+import { setModal } from "~/store/modal/actions";
+import { useEffect } from "react";
 
 export default function Home() {
-  const location = useGeolocation();
+  const location = useGeolocation({ enableHighAccuracy: true });
   const markers = useMarkers();
   const user = useAuth();
 
@@ -17,32 +19,25 @@ export default function Home() {
     return !!find;
   };
 
-  const isSameNameSharing = () => {
-    const find = markers.find(
-      (m) => m.uid !== user.uid && m.name === user.displayName,
-    );
-    return !!find;
-  };
-
-  const handleAddLocation = async () => {
-    if (isSameNameSharing())
-      return toast.error(
-        "Aynı isimde bir başka üye konum paylaşımı yapıyor. Lütfen kullanıcı adınızı değiştirin.",
-      );
-    const userLocation = {
-      name: user.displayName,
-      uid: user.uid,
-      lat: location.latitude,
-      lon: location.longitude,
-    };
-    await addMarkerToFirebase(userLocation);
-    toast.success("Konumunuzu paylaşmaya başladınız!");
-  };
-
   const handleDeleteLocation = async () => {
-    await deleteMarkerFirebase(user.uid);
-    toast.success("Konum paylaşımını durdurdunuz.");
+    const marker = markers.find((m) => m.uid === user.uid);
+    if (await deleteMarkerFirebase(marker.id)) {
+      toast.success("Konum paylaşımını durdurdunuz.");
+    }
   };
+
+  const updateMarkerLocation = async () => {
+    const marker = markers.find((m) => m.uid === user.uid);
+    if (marker) {
+      await updateMarkerFirebase(marker.id, location);
+    }
+  };
+
+  useEffect(() => {
+    if (user && !location.error && !location.loading) {
+      void updateMarkerLocation();
+    }
+  }, [user, location]);
 
   return (
     <div className="w-full h-full">
@@ -64,9 +59,9 @@ export default function Home() {
           </p>
         )}
         {user && (
-          <div className="flex flex-wrap gap-y-4 items-center justify-center gap-x-4">
+          <div className="flex flex-wrap gap-4 items-center justify-center">
             <Button
-              onClick={handleAddLocation}
+              onClick={() => setModal("share", location)}
               component="button"
               size="normal"
               variant="primary"

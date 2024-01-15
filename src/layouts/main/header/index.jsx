@@ -5,9 +5,10 @@ import { useAuth } from "~/store/auth/hooks";
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import classNames from "classnames";
-import { CiLogout } from "react-icons/ci";
 import { firebaseLogout } from "~/firebase/auth";
 import { setModal } from "~/store/modal/actions";
+import { FaUserGear } from "react-icons/fa6";
+import { BiSolidLogOut } from "react-icons/bi";
 
 export default function Header() {
   const user = useAuth();
@@ -16,7 +17,7 @@ export default function Header() {
     <div className="flex items-center justify-between h-16 mb-5">
       <Link to="/" className="flex items-center gap-x-3">
         <FiMapPin className="text-blue-400" size={28} />
-        <p className="hidden md:block text-2xl font-medium">Location Share</p>
+        <p className="text-xl md:text-2xl font-medium">Location Share</p>
       </Link>
       {user ? (
         <div className="flex items-center gap-x-4">
@@ -44,7 +45,26 @@ export default function Header() {
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
               >
-                <Menu.Items className="absolute right-0 mt-2 w-32 origin-top-right rounded-md bg-zinc-700 shadow-lg focus:outline-none overflow-hidden">
+                <Menu.Items className="absolute w-max top-full right-0 mt-2 origin-top-right rounded-md bg-zinc-700 shadow-lg focus:outline-none overflow-hidden z-[5]">
+                  <Menu.Item>
+                    {({ active }) => (
+                      <Link
+                        to="/profile"
+                        className={classNames(
+                          "w-full flex items-center gap-x-2.5 px-3 py-1 transition-all",
+                          {
+                            "!bg-zinc-600": active,
+                          },
+                        )}
+                      >
+                        <FaUserGear
+                          size={20}
+                          className="flex-shrink-0 text-white"
+                        />
+                        <p>Profil Ayarları</p>
+                      </Link>
+                    )}
+                  </Menu.Item>
                   <Menu.Item>
                     {({ active }) => (
                       <button
@@ -56,7 +76,10 @@ export default function Header() {
                           },
                         )}
                       >
-                        <CiLogout size={20} className="text-white" />
+                        <BiSolidLogOut
+                          size={20}
+                          className="flex-shrink-0 text-white"
+                        />
                         <p>Çıkış Yap</p>
                       </button>
                     )}

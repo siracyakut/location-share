@@ -1,5 +1,6 @@
 import LoginModal from "~/modals/login";
 import RegisterModal from "~/modals/register";
+import ShareModal from "~/modals/share";
 
 const modals = [
   {
@@ -11,6 +12,11 @@ const modals = [
     name: "register",
     title: "Kayıt Ol",
     element: RegisterModal,
+  },
+  {
+    name: "share",
+    title: "Konum Paylaş",
+    element: ShareModal,
   },
 ];
 

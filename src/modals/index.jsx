@@ -8,7 +8,7 @@ import { closeModal } from "~/store/modal/actions";
 
 export default function Modal() {
   const ref = useRef(null);
-  const { modal, isOpen } = useModal();
+  const { modal, data, isOpen } = useModal();
   const currentModal = modals.find((m) => m.name === modal);
 
   useClickAway(ref, closeModal);
@@ -33,7 +33,7 @@ export default function Modal() {
             >
               <div className="w-full h-full p-6">
                 <ModalHeader title={currentModal.title} close={closeModal} />
-                {currentModal && <currentModal.element />}
+                {currentModal && <currentModal.element data={data} />}
               </div>
             </div>
           </Transition.Child>

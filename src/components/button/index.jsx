@@ -7,6 +7,7 @@ export default function Button({
   children,
   variant,
   size,
+  selected,
   ...props
 }) {
   return createElement(
@@ -18,6 +19,7 @@ export default function Button({
           "bg-zinc-700 hover:bg-zinc-600": variant === "primary",
           "bg-blue-500 hover:bg-blue-400": variant === "secondary",
           "w-full": size === "full",
+          "border-2 border-white": selected,
         },
       ),
       ...props,
@@ -32,4 +34,5 @@ Button.propTypes = {
   variant: PropTypes.oneOf(["primary", "secondary"]).isRequired,
   size: PropTypes.oneOf(["full", "normal"]).isRequired,
   props: PropTypes.object,
+  selected: PropTypes.bool,
 };

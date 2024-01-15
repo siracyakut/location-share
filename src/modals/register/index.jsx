@@ -5,7 +5,7 @@ import Button from "~/components/button";
 import Or from "~/components/or";
 import { firebaseGoogleLogin, firebaseRegister } from "~/firebase/auth";
 import { FcGoogle } from "react-icons/fc";
-import { registerSchema } from "~/validations/auth/register";
+import { registerSchema } from "~/validations";
 
 export default function RegisterModal() {
   return (

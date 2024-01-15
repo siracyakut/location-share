@@ -5,7 +5,7 @@ import Button from "~/components/button";
 import { firebaseGoogleLogin, firebaseLogin } from "~/firebase/auth";
 import Or from "~/components/or";
 import { FcGoogle } from "react-icons/fc";
-import { loginSchema } from "~/validations/auth/login";
+import { loginSchema } from "~/validations";
 
 export default function LoginModal() {
   return (

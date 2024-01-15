@@ -6,12 +6,15 @@ import {
   signInWithPopup,
   signOut,
   updateProfile,
+  updatePassword,
+  updateEmail,
   GoogleAuthProvider,
 } from "firebase/auth";
 import app from "~/firebase";
 import { destroyUser, setUser } from "~/store/auth/actions";
 import { closeModal } from "~/store/modal/actions";
 import toast from "react-hot-toast";
+import { getFirebaseError } from "~/utils/firebase-errors";
 
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
@@ -35,7 +38,7 @@ export const firebaseRegister = async (username, email, password) => {
     toast.success("Başarıyla kayıt oldunuz!");
     return true;
   } catch (e) {
-    toast.error(e.message);
+    toast.error(getFirebaseError(e.code));
     return false;
   }
 };
@@ -47,7 +50,7 @@ export const firebaseLogin = async (email, password) => {
     toast.success("Başarıyla giriş yaptınız!");
     return true;
   } catch (e) {
-    toast.error(e.message);
+    toast.error(getFirebaseError(e.code));
     return false;
   }
 };
@@ -56,9 +59,10 @@ export const firebaseGoogleLogin = async () => {
   try {
     await signInWithPopup(auth, provider);
     closeModal();
+    toast.success("Başarıyla giriş yaptınız!");
     return true;
   } catch (e) {
-    toast.error(e.message);
+    toast.error(getFirebaseError(e.code));
     return false;
   }
 };
@@ -66,19 +70,46 @@ export const firebaseGoogleLogin = async () => {
 export const firebaseLogout = async () => {
   try {
     await signOut(auth);
+    toast.success("Başarıyla çıkış yaptınız.");
     return true;
   } catch (e) {
-    toast.error(e.message);
+    toast.error(getFirebaseError(e.code));
     return false;
   }
 };
 
-export const firebaseUpdate = async (username) => {
+export const firebaseUpdate = async (username = false, pictureURL = false) => {
   try {
-    await updateProfile(auth.currentUser, { displayName: username });
+    const data = {};
+    if (username) data.displayName = username;
+    if (pictureURL) data.photoURL = pictureURL;
+    await updateProfile(auth.currentUser, data);
+    if (pictureURL) auth.currentUser.photoURL = pictureURL;
+    if (username) auth.currentUser.displayName = username;
+    setUser(JSON.stringify(auth.currentUser));
     return true;
   } catch (e) {
-    toast.error(e.message);
+    toast.error(getFirebaseError(e.code));
+    return false;
+  }
+};
+
+export const firebaseUpdatePassword = async (newPassword) => {
+  try {
+    await updatePassword(auth.currentUser, newPassword);
+    return true;
+  } catch (e) {
+    toast.error(getFirebaseError(e.code));
+    return false;
+  }
+};
+
+export const firebaseUpdateMail = async (newMail) => {
+  try {
+    await updateEmail(auth.currentUser, newMail);
+    return true;
+  } catch (e) {
+    toast.error(getFirebaseError(e.code));
     return false;
   }
 };
