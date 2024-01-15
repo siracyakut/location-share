@@ -28,7 +28,11 @@ export default function Home() {
 
   const updateMarkerLocation = async () => {
     const marker = markers.find((m) => m.uid === user.uid);
-    if (marker) {
+    if (
+      marker &&
+      marker.lat !== location.latitude &&
+      marker.lon !== location.longitude
+    ) {
       await updateMarkerFirebase(marker.id, location);
     }
   };
