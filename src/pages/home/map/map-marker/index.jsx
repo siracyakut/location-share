@@ -2,7 +2,7 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 import PropTypes from "prop-types";
 import { Popover } from "@headlessui/react";
 
-export default function MapMarker({ name, lat, lng }) {
+export default function MapMarker({ name, image, lat, lng }) {
   const marker_width = 40;
   const marker_height = 40;
 
@@ -23,7 +23,13 @@ export default function MapMarker({ name, lat, lng }) {
         </div>
       </Popover.Button>
       <Popover.Panel className="absolute top-5 -left-9 z-[2] bg-zinc-900 rounded-md p-2 w-max flex flex-col items-center justify-center text-center">
-        {}
+        {image && (
+          <img
+            className="w-12 h-12 rounded-full object-cover mb-2"
+            src={image}
+            alt="user profile"
+          />
+        )}
         <p>Kullanıcı: {name}</p>
         <p>LAT: {lat.toFixed(5)}</p>
         <p>LON: {lng.toFixed(5)}</p>

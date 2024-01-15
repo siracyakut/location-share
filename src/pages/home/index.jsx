@@ -97,6 +97,7 @@ export default function Home() {
             <MapMarker
               key={index}
               name={marker.name}
+              image={marker.image}
               lat={marker.lat}
               lng={marker.lon}
             />
