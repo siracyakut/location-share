@@ -40,6 +40,7 @@ export default function MapMarker({ name, image, lat, lng }) {
 
 MapMarker.propTypes = {
   name: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
   lat: PropTypes.number.isRequired,
   lng: PropTypes.number.isRequired,
 };

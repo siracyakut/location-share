@@ -49,6 +49,18 @@ export const updateMarkerFirebase = async (id, location) => {
   }
 };
 
+export const firebaseDocumentImageUpdate = async (id, newPhoto) => {
+  try {
+    await updateDoc(doc(db, "markers", id), {
+      image: newPhoto,
+    });
+    return true;
+  } catch (e) {
+    toast.error(getFirebaseError(e.code));
+    return false;
+  }
+};
+
 onSnapshot(collection(db, "markers"), (doc) => {
   const data = doc.docs.reduce(
     (markers, marker) => [...markers, { ...marker.data(), id: marker.id }],

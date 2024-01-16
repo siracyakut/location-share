@@ -1,5 +1,5 @@
 import GoogleMapReact from "google-map-react";
-import { darkTheme, lightTheme } from "~/constants/map-themes";
+import { darkTheme } from "~/constants/map-themes";
 import PropTypes from "prop-types";
 
 export default function Map({ children }) {

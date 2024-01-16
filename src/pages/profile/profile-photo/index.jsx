@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import { useAuth } from "~/store/auth/hooks";
 import { useMarkers } from "~/store/markers/hooks";
 import { setMarkers } from "~/store/markers/actions";
+import { firebaseDocumentImageUpdate } from "~/firebase/db";
 
 export default function ProfilePhotoChange() {
   const user = useAuth();
@@ -14,11 +15,13 @@ export default function ProfilePhotoChange() {
 
   const handleSubmit = async (values, helpers) => {
     if (await firebaseUpdate(false, values.photoLink)) {
-      helpers.resetForm();
-      const t = structuredClone(markers);
-      const newMarkers = t.map((marker) => {
+      await helpers.setValues({
+        photoLink: values.photoLink,
+      });
+      const newMarkers = structuredClone(markers).map((marker) => {
         if (marker.uid === user.uid) {
           marker.image = values.photoLink;
+          firebaseDocumentImageUpdate(marker.id, values.photoLink);
         }
         return marker;
       });

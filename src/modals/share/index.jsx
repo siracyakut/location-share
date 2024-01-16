@@ -27,7 +27,7 @@ export default function ShareModal({ data }) {
       );
     const userLocation = {
       name: user.displayName,
-      image: user.photoURL,
+      image: user.photoURL || "",
       uid: user.uid,
       lat: data.latitude,
       lon: data.longitude,

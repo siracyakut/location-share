@@ -26,6 +26,7 @@ export default function Footer() {
             className="hover:text-blue-400 hover:underline transition-all"
             href="https://github.com/siracyakut"
             target="_blank"
+            rel="noreferrer"
           >
             Siraç Yakut
           </a>
