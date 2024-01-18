@@ -6,26 +6,22 @@ import { firebaseUpdate } from "~/firebase/auth";
 import toast from "react-hot-toast";
 import { useAuth } from "~/store/auth/hooks";
 import { useMarkers } from "~/store/markers/hooks";
-import { setMarkers } from "~/store/markers/actions";
-import { firebaseDocumentImageUpdate } from "~/firebase/db";
+import { updateMarkerFirebase } from "~/firebase/db";
 
 export default function ProfilePhotoChange() {
   const user = useAuth();
   const markers = useMarkers();
 
   const handleSubmit = async (values, helpers) => {
-    if (await firebaseUpdate(false, values.photoLink)) {
+    if (await firebaseUpdate({ photoURL: values.photoLink })) {
       await helpers.setValues({
         photoLink: values.photoLink,
       });
-      const newMarkers = structuredClone(markers).map((marker) => {
+      markers.forEach((marker) => {
         if (marker.uid === user.uid) {
-          marker.image = values.photoLink;
-          firebaseDocumentImageUpdate(marker.id, values.photoLink);
+          updateMarkerFirebase(marker.id, { image: values.photoLink });
         }
-        return marker;
       });
-      setMarkers(newMarkers);
       toast.success("Profil fotoğrafınızı güncellediniz!");
     }
   };

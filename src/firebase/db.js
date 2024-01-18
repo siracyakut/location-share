@@ -37,26 +37,11 @@ export const deleteMarkerFirebase = async (id) => {
   }
 };
 
-export const updateMarkerFirebase = async (id, location) => {
+export const updateMarkerFirebase = async (id, data) => {
   try {
-    await updateDoc(doc(db, "markers", id), {
-      lat: location.latitude,
-      lon: location.longitude,
-    });
+    await updateDoc(doc(db, "markers", id), data);
     return true;
   } catch (e) {
-    return false;
-  }
-};
-
-export const firebaseDocumentImageUpdate = async (id, newPhoto) => {
-  try {
-    await updateDoc(doc(db, "markers", id), {
-      image: newPhoto,
-    });
-    return true;
-  } catch (e) {
-    toast.error(getFirebaseError(e.code));
     return false;
   }
 };

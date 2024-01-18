@@ -33,7 +33,10 @@ export default function Home() {
       marker.lat !== location.latitude &&
       marker.lon !== location.longitude
     ) {
-      await updateMarkerFirebase(marker.id, location);
+      await updateMarkerFirebase(marker.id, {
+        lat: location.latitude,
+        lon: location.longitude,
+      });
     }
   };
 

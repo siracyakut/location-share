@@ -78,14 +78,9 @@ export const firebaseLogout = async () => {
   }
 };
 
-export const firebaseUpdate = async (username = false, pictureURL = false) => {
+export const firebaseUpdate = async (data) => {
   try {
-    const data = {};
-    if (username) data.displayName = username;
-    if (pictureURL) data.photoURL = pictureURL;
     await updateProfile(auth.currentUser, data);
-    if (pictureURL) auth.currentUser.photoURL = pictureURL;
-    if (username) auth.currentUser.displayName = username;
     setUser(JSON.stringify(auth.currentUser));
     return true;
   } catch (e) {
