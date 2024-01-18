@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
     <div className="mt-auto w-full flex items-center justify-center">
-      <div className="w-max text-center my-4 bg-zinc-800/60 py-2 px-0 md:px-4 rounded-md flex flex-wrap gap-y-1.5 items-center justify-center gap-x-4 text-sm">
+      <div className="w-max text-center my-4 bg-zinc-800/60 py-2 px-0 md:px-4 rounded-md flex flex-wrap gap-y-1.5 items-center justify-center gap-x-3 text-sm">
         <div className="w-full md:w-auto flex items-center justify-center gap-x-2">
           <span>Made with</span>
           <svg
